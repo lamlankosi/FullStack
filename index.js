@@ -1,10 +1,16 @@
-import express from 'express'
+import {express, routerUser} from './controller/userController.js'
 import path from 'path'
 import 'dotenv/config'
 
 const app = express()
 const port = +process.env.PORT || 4000
 
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    next()
+}) 
+app.use('/user', routerUser)
 
 app.use(
     express.static('./static'),

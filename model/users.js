@@ -7,7 +7,7 @@ class Users {
     fetchUsers(req, res) {
         try{
             const strQry = `
-            SELECT firstName, lastName, userAge, Gender, userRole, emailAdd, profileURL
+            SELECT firstName, lastName, userAge, Gender, userRole, emailAdd, userProfile
             FROM Users;
             `
             db.query(strQry, (err, results) => {
@@ -48,7 +48,7 @@ class Users {
     async registerUser(req, res) {
         try { 
             let data = req.body
-            data.pwd = await hash(data.pwd, 12)
+            data.userPass = await hash(data.userPass, 12)
 
             let user = {
                 emailAdd: data.emailAdd,
@@ -127,13 +127,13 @@ class Users {
     }
     loginUser(req, res) {
         try{
-            const {emailAdd, pwd} = req.body
+            const {emailAdd, userPass} = req.body
             const strQry = `
-            SELECT userID, fistName, lastName, age, emailAdd, pwd, userRole, profileURL
+            SELECT userID, firstName, lastName, userAge,Gender, emailAdd, userPass, userRole, userProfile
             FROM Users
             WHERE emailAdd = '${emailAdd}'`
             db.query(strQry, async (err, result) => {
-                if (err) throw new Error ('To login please review')
+                if (err) throw new Error (err)
                     if(!result?.length) {
                         res.json(
                             {
@@ -142,11 +142,11 @@ class Users {
                             }
                         )
                     } else {
-                        const  ValidPwd = await compare(pwd, result[0].pwd)
+                        const  ValidPwd = await compare(userPass, result[0].userPass)
                         if(ValidPwd) {
                             const token = createToken({
                                 emailAdd,
-                                pwd
+                                userPass
                             })
                             res.json({
                                 status: res.statusCode,

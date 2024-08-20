@@ -1,15 +1,15 @@
 import 'dotenv/config'
 import jwt from 'jsonwebtoken'
 
-const {signIn, verify} = jwt
+const {sign, verify} = jwt
 
 function createToken(user){
-    return signIn(
+    return sign(
         {
             emailAdd: user.emailAdd,
             userPass: user.userPass
         },
-        process.env.SECRETE_KEY,
+        process.env.SECRET_KEY,
         {
             expiresIn: '1h'
         }
