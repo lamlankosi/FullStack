@@ -4,7 +4,7 @@ class Products {
     fetchProducts(req,res){
         try{
             const strQry = `
-            SELECT prodName, quantity, amount, Category, prodUrl
+            SELECT prodID, prodName, quantity, amount, Category, prodUrl
             FROM Products;
             `
             db.query(strQry, (err, results) => {
@@ -24,7 +24,7 @@ class Products {
     fetchProduct(req,res){
         try{
             const strQry = `
-            SELECT prodName, quantity, amount, Category, prodUrl
+            SELECT prodID, prodName, quantity, amount, Category, prodUrl
             FROM Products
             WHERE prodID = ${req.params.id};
             `
@@ -69,9 +69,9 @@ class Products {
             const strQry =`
             UPDATE Products
             SET ?
-            WHERE prodID = ${req.params.id};`
+            WHERE prodID = '${req.params.id}';`
             db.query(strQry, [data], (err) => {
-                if(err) throw new Error ('Couldn\'t Update product please try again')
+                if(err) throw new Error (err)
                     res.json({
                         status: res.statusCode,
                         msg: 'Updated Successfully'
