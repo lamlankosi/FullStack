@@ -8,5 +8,95 @@
 </head>
 <body>
     <h1>WELCOME</h1>
+    <div class="home">
+        <h2>Home</h2>
+        <table>
+            <tr>
+                <th>HTTP Methods</th>
+                <th>Path</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/</td>
+                <td>returns to the home page</td>
+            </tr>
+        </table>
+    </div>
+    <div class="Users">
+        <h2>Users</h2>
+        <table>
+            <tr>
+                <th>HTPP Methods</th>
+                <th>Path</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/users</td>
+                <td>returns all the users</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/users/:id</td>
+                <td>returns a user based on their id </td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/users/signUp</td>
+                <td>it registers a user on the database</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/users/signIn</td>
+                <td>for login in a user</td>
+            </tr>
+            <tr>
+                <td>PATCH</td>
+                <td>/users/:id</td>
+                <td>Updates a user details based on their id</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/users/:id</td>
+                <td>deletes user on the database</td>
+            </tr>
+        </table>
+    </div>
+    <div class="Products">
+        <h2>Products</h2>
+        <table>
+            <tr>
+                <th>HTPP Methods</th>
+                <th>Path</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/products</td>
+                <td>returns all the products</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/users/:id</td>
+                <td>returns product based on their id </td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/products/add</td>
+                <td>it add a product on the database</td>
+            </tr>
+            <tr>
+                <td>PATCH</td>
+                <td>/products/:id</td>
+                <td>Updates a product details based on their id</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/product/:id</td>
+                <td>deletes a product on the database</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

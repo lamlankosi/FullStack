@@ -1,7 +1,7 @@
 import {connection as db } from '../config/index.js'
 
 class Products {
-    fetchProducts(){
+    fetchProducts(req,res){
         try{
             const strQry = `
             SELECT prodName, quantity, amount, Category, prodUrl
@@ -9,10 +9,10 @@ class Products {
             `
             db.query(strQry, (err, results) => {
                 if(err) throw new Error(err)
-                res.json({
-                    status: res.statusCode,
-                    results
-                })
+                    res.json({
+                        status: res.statusCode,
+                        results
+                    })
             })
         } catch (e) {
             res.json({
@@ -21,7 +21,7 @@ class Products {
             })
         }
     }
-    fetchProduct(){
+    fetchProduct(req,res){
         try{
             const strQry = `
             SELECT prodName, quantity, amount, Category, prodUrl
@@ -42,32 +42,28 @@ class Products {
             })
         }
     }
-    async addProduct(){
-        try{
+    addProduct(req,res){
+        try {
             let data = req.body
-            let strQry= `
+            const strQry = `
             INSERT INTO Products
-            SET ?`
-            db.query(strQry, [data], (err) => {
-                if(err) {
-                    res.json({
-                        status: res.statusCode,
-                        msg: 'Unable to add a Product'
-                    })
-                } else {
-                    res.json({
-                        msg: 'A product has been added successfully.'
-                    })
-                }
+            SET ?
+            `
+            db.query(strQry, [data], (err) => { 
+                if (err) throw new Error('Couldn\'t add product')
+                res.json({
+                    status: res.statusCode,
+                    msg: 'Product was added successfully'
+                })
             })
         } catch (e) {
             res.json({
                 status: 404,
-                msg: e.message
+                err: e.message
             })
-        }
+         }
     }
-    async updateProduct(){
+    async updateProduct(req,res){
         try{
             let data = req.body
             const strQry =`
@@ -88,7 +84,7 @@ class Products {
         })
        }
     }
-    deleteProduct(){
+    deleteProduct(req,res){
         try{
             const strQry = `
             DELETE 
