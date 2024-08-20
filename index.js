@@ -17,25 +17,24 @@ app.use((req, res, next) => {
 
     next()
 })
-app.use('/product', prodRouter)
-app.use('/user', routerUser)
-
 app.use(
     express.static('./static'),
     express.json(),
     express.urlencoded({
         extended: true
 }))
+app.use('/product', prodRouter)
+app.use('/user', routerUser)
+
+app.get('^/$|/urbanLoft', (req, res)=>{
+    res.status(200).sendFile(path.resolve('./static/html/index.html'))
+})
 
 app.get('*', (req,res) => {
     res.json({
         status: 404,
         msg: 'Page not found'
     })
-})
-
-app.get('^/$|/urbanLoft', (req, res)=>{
-    res.status(200).sendFile(path.resolve('./static/html/index.html'))
 })
 app.listen(port, () => {
     console.log(`Server is running on ${port}`);
