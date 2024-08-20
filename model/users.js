@@ -11,7 +11,7 @@ class Users {
             FROM Users;
             `
             db.query(strQry, (err, results) => {
-                if(err) throw new Error(err)
+                if(err) throw new Error('Couldn\'t fetch users, review and try again')
                 res.json({
                     status: res.statusCode,
                     results
