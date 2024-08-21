@@ -23,8 +23,8 @@ app.use(
     express.urlencoded({
         extended: true
 }))
-app.use('/product', prodRouter)
-app.use('/user', routerUser)
+app.use('/products', prodRouter)
+app.use('/users', routerUser)
 
 app.get('^/$|/urbanLoft', (req, res)=>{
     res.status(200).sendFile(path.resolve('./static/html/index.html'))
