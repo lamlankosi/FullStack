@@ -11,7 +11,7 @@
   <style scoped>
   .hero {
     height: 80vh;
-    /* background: url('@/assets/hero-bg.jpg') center/cover no-repeat; */
+    background: url('@/assets/hero-bg.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;

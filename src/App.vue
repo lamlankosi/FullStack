@@ -1,23 +1,22 @@
 <template>
   <div id="app">
     <Header />
-    <HeroSection/>
+    <router-view />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue';
-import HeroSection from './components/HeroSection.vue';
 
 export default {
   components: {
     Header,
-    HeroSection
-  }
+  },
 };
 </script>
 
 <style>
+/* Global styles */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
@@ -28,4 +27,4 @@ body {
   max-width: 1200px;
   margin: 0 auto;
 }
-</style>z
+</style>
