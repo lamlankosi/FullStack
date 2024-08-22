@@ -30,6 +30,7 @@ body, html {
   color: #4A4A4A;
 }
 
+
 #app {
   display: flex;
   flex-direction: column;
