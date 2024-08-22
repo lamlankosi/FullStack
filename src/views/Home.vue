@@ -21,7 +21,7 @@
             :class="{ active: index === 0 }"
           >
             <div class="row">
-              <Card v-for="product in chunk" :key="product.prodID">
+              <Card v-for="product in chunk" :key="product.prodID" class="product-card">
                 <template #cardHeader>
                   <img :src="product.prodUrl" loading="lazy" class="img-fluid" :alt="product.prodName">
                 </template>
@@ -34,16 +34,12 @@
             </div>
           </div>
         </div>
-        <!-- Optional: Indicators for carousel -->
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <!-- Add more indicators if needed -->
-        </div>
+        <!-- Carousel controls (if needed) -->
       </div>
-      <!-- Button to navigate to the products page -->
-      <div class="text-center mt-4">
-        <button @click="goToProductsPage" class="btn btn-primary">View More Products</button>
+
+      <!-- View More Button under Carousel -->
+      <div class="text-center my-3">
+        <button @click="viewMore" class="btn btn-primary">View More</button>
       </div>
     </section>
   </div>
@@ -52,7 +48,7 @@
 <script>
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
-import { useRouter } from 'vue-router'; // Import useRouter
+import { useRouter } from 'vue-router';
 import Card from '@/components/Card.vue';
 
 export default {
@@ -62,11 +58,11 @@ export default {
   },
   setup() {
     const store = useStore();
-    const router = useRouter(); // Use router
+    const router = useRouter();
     const products = computed(() => store.state.products || []);
     const productChunks = ref([]);
 
-    // Chunk the products into groups of 2 for carousel slides
+    // Chunk the products into groups of 3 for carousel slides
     const chunkProducts = (products, size) => {
       const result = [];
       for (let i = 0; i < products.length; i += size) {
@@ -81,13 +77,13 @@ export default {
       });
     });
 
-    const goToProductsPage = () => {
-      router.push('/products'); // Navigate to the products page
+    const viewMore = () => {
+      router.push('/products');
     };
 
     return {
       productChunks,
-      goToProductsPage,
+      viewMore,
     };
   },
 };
@@ -165,48 +161,55 @@ export default {
   flex-wrap: wrap;
 }
 
-.card {
-  margin: 15px;
-  width: 18rem;
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 18rem;
 }
 
-@media (max-width: 300px) {
-  .card {
-    width: 100%;
+.product-card img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-card .card-body {
+  padding: 1.25rem;
+  background: #fff;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .product-card {
+    max-width: 100%;
+  }
+
+  .product-card img {
+    height: 150px;
   }
 }
 
-/* Hide carousel controls */
-.carousel-control-prev,
-.carousel-control-next {
-  display: none;
+@media (max-width: 480px) {
+  .product-card img {
+    height: 120px;
+  }
 }
 
-/* Style for carousel indicators */
-.carousel-indicators {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
+@media (max-width: 360px) {
+  .product-card img {
+    height: 100px;
+  }
 }
 
-.carousel-indicators button {
-  background-color: #8b5e3c;
-}
-
-.carousel-indicators .active {
-  background-color: #fff;
-}
-
-/* Style for button */
 .btn-primary {
-  background-color: #8B5E3C; /* Match the button color to your site */
+  background-color: #8B5E3C;
   border: none;
 }
 
 .btn-primary:hover {
-  background-color: #6a4b39; /* Darker shade for hover */
+  background-color: #6f4e28;
 }
 </style>

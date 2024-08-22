@@ -1,15 +1,14 @@
 import { createStore } from 'vuex'
-import { toast} from 'vue3-toastify'
+import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import axios from 'axios'
 
 const APIUrl = 'https://fullstack-b2wd.onrender.com/'
+
 export default createStore({
   state: {
-    products: null,
+    products: [],
     product: null
-  },
-  getters: {
   },
   mutations: {
     setProducts(state, value) {
@@ -18,99 +17,116 @@ export default createStore({
     setProduct(state, value) {
       state.product = value
     },
+    addProduct(state, product) {
+      state.products.push(product)
+    },
+    updateProduct(state, updatedProduct) {
+      const index = state.products.findIndex(p => p.prodID === updatedProduct.prodID)
+      if (index !== -1) {
+        state.products[index] = updatedProduct
+      }
+    },
+    deleteProduct(state, productId) {
+      state.products = state.products.filter(p => p.prodID !== productId)
+    }
   },
   actions: {
-    //Products 
-    async fetchProducts(context) {
-      try{
-        // const {result, msg} = await (await axios.get(`${APIUrl}products`)).data
-        const {data} = await axios.get(`${APIUrl}products`)
-        console.log(data);
-        
-        if (data) {
-          context.commit('setProducts', data.results)
+    // Fetch all products
+    async fetchProducts({ commit }) {
+      try {
+        const { data } = await axios.get(`${APIUrl}products`)
+        if (data && data.results) {
+          commit('setProducts', data.results)
         } else {
-          toast.error(`oo`, {
+          toast.error('Failed to fetch products', {
             autoClose: 2000,
             position: toast.POSITION.TOP_CENTER
           })
         }
-      } catch(e) {
-        toast.error(`${e.message}`,{
-          autoClose: 2000
+      } catch (e) {
+        toast.error(`Error: ${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.TOP_CENTER
         })
       }
     },
-    async fetchProduct(context, id) {
+
+    // Fetch a single product by ID
+    async fetchProduct({ commit }, id) {
       try {
-        const { result, msg } = await (await axios.get(`${APIUrl}product/${id}`)).data
-        if (result) {
-          context.commit('setProduct', result)
+        const { data } = await axios.get(`${APIUrl}product/${id}`)
+        if (data && data.result) {
+          commit('setProduct', data.result)
         } else {
-          toast.error(`${msg}`, {
+          toast.error('Failed to fetch product', {
             autoClose: 2000,
             position: toast.POSITION.TOP_CENTER
           })
         }
       } catch (e) {
-        toast.error(`${e.message}`, {
+        toast.error(`Error: ${e.message}`, {
           autoClose: 2000,
           position: toast.POSITION.TOP_CENTER
         })
       }
     },
-    async addAProduct(context, payload) {
+
+    // Add a new product
+    async addProduct({ commit }, payload) {
       try {
-        const { msg } = await (await axios.post(`${APIUrl}product/add`, payload)).data
-        if (msg) {
-          context.dispatch('fetchProducts')
-          toast.success(`${msg}`, {
+        const { data } = await axios.post(`${APIUrl}product/add`, payload)
+        if (data && data.product) {
+          commit('addProduct', data.product) // assuming the response contains the new product
+          toast.success('Product added successfully', {
             autoClose: 2000,
             position: toast.POSITION.TOP_CENTER
           })
         }
       } catch (e) {
-        toast.error(`${e.message}`, {
+        toast.error(`Error: ${e.message}`, {
           autoClose: 2000,
           position: toast.POSITION.TOP_CENTER
         })
       }
     },
-    async updateProduct(context, payload) {
+
+    // Update an existing product
+    async updateProduct({ commit }, payload) {
       try {
-        const { msg } = await (await axios.patch(`${APIUrl}product/${payload.productID}`, payload)).data
-        if (msg) {
-          context.dispatch('fetchProducts')
-          toast.success(`${msg}`, {
+        const { data } = await axios.patch(`${APIUrl}product/${payload.prodID}`, payload)
+        if (data && data.product) {
+          commit('updateProduct', data.product) // assuming the response contains the updated product
+          toast.success('Product updated successfully', {
             autoClose: 2000,
             position: toast.POSITION.TOP_CENTER
           })
         }
       } catch (e) {
-        toast.error(`${e.message}`, {
+        toast.error(`Error: ${e.message}`, {
           autoClose: 2000,
           position: toast.POSITION.TOP_CENTER
         })
       }
     },
-    async deleteProduct(context, id) {
+
+    // Delete a product
+    async deleteProduct({ commit }, id) {
       try {
-        const { msg } = await (await axios.delete(`${APIUrl}product/${id}`)).data
-        if (msg) {
-          context.dispatch('fetchProducts')
-          toast.success(`${msg}`, {
+        const { data } = await axios.delete(`${APIUrl}product/${id}`)
+        if (data && data.msg) {
+          commit('deleteProduct', id)
+          toast.success('Product deleted successfully', {
             autoClose: 2000,
             position: toast.POSITION.TOP_CENTER
           })
         }
       } catch (e) {
-        toast.error(`${e.message}`, {
+        toast.error(`Error: ${e.message}`, {
           autoClose: 2000,
           position: toast.POSITION.TOP_CENTER
         })
       }
     }
   },
-  modules: {
-  }
+  modules: {}
 })
