@@ -9,7 +9,7 @@ prodRouter.use(bodyParser.json())
 prodRouter.get('/', (req, res) => {
     products.fetchProducts(req,res)
 })
-//fetch product
+//fetch product.
 prodRouter.get('/:id', (req,res) => {
     products.fetchProduct(req,res)
 })
