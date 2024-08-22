@@ -4,7 +4,7 @@
             <h2 class="display-2">Our Products</h2>
         </div>
         <div class="row gap-2 justify-content-center my-2" v-if="products">
-            <Card v-for="product in products" :key="product.prodID">
+            <Card v-for="product in products" :key="product.prodID" id="card">
                 <template #cardHeader>
                     <img :src="product.prodUrl" loading="lazy" class="img-fluid" :alt="product.prodName">
                 </template>
@@ -54,5 +54,8 @@ export default {
 </script>
 
 <style>
-
+#card{
+  display: grid;
+  grid-template-rows: repeat (3, 1fr );
+}
 </style>
