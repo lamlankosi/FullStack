@@ -2,6 +2,7 @@ import {express, routerUser} from './controller/userController.js'
 import {prodRouter} from './controller/prodController.js'
 import path from 'path'
 import 'dotenv/config'
+import { errorHandling } from './middleware/ErrorHandling.js'
 
 const app = express()
 const port = +process.env.PORT || 4000
@@ -36,6 +37,9 @@ app.get('*', (req,res) => {
         msg: 'Page not found'
     })
 })
+
+app.use(errorHandling)
+
 app.listen(port, () => {
     console.log(`Server is running on ${port}`);
 })
