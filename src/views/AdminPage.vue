@@ -31,28 +31,55 @@
     </section>
 
     <!-- Products List -->
-    <section class="products-list">
-      <h2>Products</h2>
+    <section class="product-list">
+      <h2>Product List</h2>
       <ul>
-        <li v-for="product in products" :key="product.id">
-          <span>{{ product.prodName }} - {{ product.amount }}</span>
-          <button @click="editProduct(product)">Edit</button>
-          <button @click="deleteProduct(product.id)">Delete</button>
+        <li v-for="product in products" :key="product.prodID" class="product-item">
+          <img :src="product.prodUrl" :alt="product.prodName" class="product-image" />
+          <div class="product-info">
+            <h3>{{ product.prodName }}</h3>
+            <p><strong>Amount:</strong> R{{ product.amount }}</p>
+            <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+            <p><strong>Category:</strong> {{ product.Category }}</p>
+            <div class="btn-group">
+              <button @click="editProduct(product)" class="btn-secondary">Edit</button>
+              <button @click="deleteProduct(product.prodID)" class="btn-danger">Delete</button>
+            </div>
+          </div>
         </li>
       </ul>
     </section>
 
     <!-- Users List -->
-    <section class="users-list">
-      <h2>Users</h2>
-      <ul>
-        <li v-for="user in users" :key="user.id">
-          <span>{{ user.firstName }} {{ user.lastName }}</span>
-          <button @click="editUser(user)">Edit</button>
-          <button @click="deleteUser(user.id)">Delete</button>
-        </li>
-      </ul>
-    </section>
+    <section class="user-list">
+      <h2>User List</h2>
+      <table class="user-table">
+          <tr>
+            <th>Profile</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+
+          <tr v-for="user in users" :key="user.userID">
+            <td><img :src="user.userProfile" :alt="user.firstName" id="user-image"></td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.userAge }}</td>
+            <td>{{ user.Gender }}</td>
+            <td>{{ user.userRole }}</td>
+            <td>{{ user.emailAdd }}</td>
+            <td>
+              <button @click="editUser(user)" class="btn-secondary">Edit</button>
+              <button @click="deleteUser(user.userID)" class="btn-danger">Delete</button>
+            </td>
+          </tr>
+      </table>
+    </section> 
 
     <!-- Product Edit Modal -->
     <EditModal
@@ -70,7 +97,6 @@
       @update-user="handleUpdateUser"
     />
   </div>
-  <CardComp/>
 </template>
 
 <script>
@@ -144,17 +170,34 @@ export default {
 </script>
 
 <style scoped>
-/* Add necessary styles for your page */
+/* General Layout */
 .admin-container {
   padding: 20px;
+  background-color: #f5f5f5; /* Light beige background for a neutral look */
+  color: #4a4a4a; /* Dark gray text for readability */
+  font-family: 'Arial', sans-serif; /* Clean font for a modern look */
 }
 
+/* Page Title */
 .page-title {
   margin-bottom: 20px;
+  font-size: 2rem;
+  color: #5c4033; /* Deep brown for a warm feel */
 }
 
-.form-section, .products-list, .users-list {
+/* Form Section */
+.form-section {
+  background-color: #ffffff; /* White background for the form */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   margin-bottom: 20px;
+}
+
+.form-section h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #6f4f28; /* Medium brown */
 }
 
 .form-group {
@@ -164,38 +207,142 @@ export default {
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  color: #6f4f28; /* Medium brown for labels */
 }
 
 .form-group input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
+  padding: 10px;
+  border: 1px solid #d8b4a3; /* Light brown border */
   border-radius: 4px;
+  background-color: #fafafa; /* Light background for input fields */
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #8b5e3c; /* Warm brown for buttons */
   color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #704f36; /* Darker brown on hover */
 }
 
 .btn-secondary {
-  background-color: #6c757d;
+  background-color: #bfae9b; /* Lighter beige for secondary buttons */
   color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .btn-secondary:hover {
-  background-color: #5a6268;
+  background-color: #9e8e7e; /* Slightly darker beige on hover */
+}
+
+/* Product List */
+.product-list {
+  margin-bottom: 20px;
+}
+
+.product-list h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #6f4f28; /* Medium brown */
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d8b4a3; /* Light brown border */
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for each item */
+}
+
+.product-image {
+  width: 100px;
+  height: auto;
+  margin-right: 15px;
+  border-radius: 4px;
+}
+
+.product-info {
+  flex-grow: 1;
+}
+
+.product-info h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #5c4033; /* Deep brown */
+}
+
+.product-info p {
+  margin: 5px 0;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* User List */
+.user-list {
+  margin-bottom: 20px;
+}
+
+.user-list h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #6f4f28; /* Medium brown */
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th, .user-table td {
+  padding: 10px;
+  border: 1px solid #d8b4a3; /* Light brown border for table cells */
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #e5d9cc; /* Light beige for headers */
+  color: #6f4f28; /* Medium brown for header text */
+}
+
+.user-table td {
+  background-color: #ffffff; /* White background for cells */
+}
+
+.user-table img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.btn-danger {
+  background-color: #d9534f; /* Bootstrap red for danger */
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+  background-color: #c9302c; /* Darker red on hover */
 }
 </style>
+
