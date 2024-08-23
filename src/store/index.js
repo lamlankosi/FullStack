@@ -139,19 +139,19 @@ export default createStore({
     },
     async fetchUsers(context) {
       try {
-        const { results, msg } = await (await axios.get(`${APIUrl}user`)).data
+        const { results, msg } = await (await axios.get(`${APIUrl}users`)).data
         if (results) {
           context.commit('setUsers', results)
         } else {
           toast.error(`${msg}`, {
             autoClose: 2000,
-            position: toast.POSITION.BOTTOM_CENTER
+            position: toast.POSITION.TOP_CENTER
           })
         }
       } catch (e) {
         toast.error(`${e.message}`, {
           autoClose: 2000,
-          position: toast.POSITION.BOTTOM_CENTER
+          position: toast.POSITION.TOP_CENTER
         })
       }
     },
@@ -163,13 +163,13 @@ export default createStore({
         } else {
           toast.error(`${msg}`, {
             autoClose: 2000,
-            position: toast.POSITION.BOTTOM_CENTER
+            position: toast.POSITION.TOP_CENTER
           })
         }
       } catch (e) {
         toast.error(`${e.message}`, {
           autoClose: 2000,
-          position: toast.POSITION.BOTTOM_CENTER
+          position: toast.POSITION.TOP_CENTER
         })
       }
     },
@@ -180,19 +180,19 @@ export default createStore({
           context.dispatch('fetchUsers')
           toast.success(`${msg}`, {
             autoClose: 2000,
-            position: toast.POSITION.BOTTOM_CENTER
+            position: toast.POSITION.TOP_CENTER
           })
           router.push({ name: 'login' })
         } else {
           toast.error(`${err}`, {
             autoClose: 2000,
-            position: toast.POSITION.BOTTOM_CENTER
+            position: toast.POSITION.TOP_CENTER
           })
         }
       } catch (e) {
         toast.error(`${e.message}`, {
           autoClose: 2000,
-          position: toast.POSITION.BOTTOM_CENTER
+          position: toast.POSITION.TOP_CENTER
         })
       }
     },
@@ -204,13 +204,13 @@ export default createStore({
         } else {
           toast.error(`${err}`, {
             autoClose: 2000,
-            position: toast.POSITION.BOTTOM_CENTER
+            position: toast.POSITION.TOP_CENTER
           })
         }
       } catch (e) {
         toast.error(`${e.message}`, {
           autoClose: 2000,
-          position: toast.POSITION.BOTTOM_CENTER
+          position: toast.POSITION.TOP_CENTER
         })
       }
     },
@@ -222,13 +222,13 @@ export default createStore({
         } else {
           toast.error(`${err}`, {
             autoClose: 2000,
-            position: toast.POSITION.BOTTOM_CENTER
+            position: toast.POSITION.TOP_CENTER
           })
         }
       } catch (e) {
         toast.error(`${e.message}`, {
           autoClose: 2000,
-          position: toast.POSITION.BOTTOM_CENTER
+          position: toast.POSITION.TOP_CENTER
         })
       }
     },

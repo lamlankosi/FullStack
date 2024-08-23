@@ -78,6 +78,36 @@
         <button @click="cancelEdit" class="btn-secondary">Cancel</button>
       </form>
     </section>
+    
+    <section class="user-list">
+      <h2>User List</h2>
+      <table class="user-table">
+          <tr>
+            <th>Profile</th>
+            <th>Username</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+
+          <tr v-for="user in users" :key="user.userID">
+            <td><img :src="user.userProfile" :="lazy" :alt="user.firstName" id="user-image"></td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.userAge }}</td>
+            <td>{{ user.Gender }}</td>
+            <td>{{ user.userRole }}</td>
+            <td>{{ user.emailAdd }}</td>
+            <td>
+              <button @click="editUser(user)" class="btn-secondary">Edit</button>
+              <button @click="deleteUser(user.userID)" class="btn-danger">Delete</button>
+            </td>
+          </tr>
+      </table>
+    </section> 
   </div>
 </template>
 
@@ -99,7 +129,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['products'])
+    ...mapState(['products']),
+    users() {
+      return this.$store.state.users
+    }
   },
   methods: {
     async addProduct() {
@@ -121,7 +154,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('fetchProducts');
+    this.$store.dispatch('fetchProducts')
+    this.$store.dispatch('fetchUsers')
   }
 }
 </script>
@@ -235,6 +269,10 @@ export default {
 .product-info p {
   margin: 5px 0;
   color: #8B5E3C; /* Warm brown color */
+}
+
+#user-image{
+  width: 50px;
 }
 
 @media (max-width: 600px) {
