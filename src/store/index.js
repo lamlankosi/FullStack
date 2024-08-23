@@ -2,13 +2,16 @@ import { createStore } from 'vuex'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import axios from 'axios'
+import router from '@/router'
 
 const APIUrl = 'https://fullstack-b2wd.onrender.com/'
 
 export default createStore({
   state: {
     products: [],
-    product: null
+    product: null,
+    users: null,
+    user: null
   },
   mutations: {
     setProducts(state, value) {
@@ -28,7 +31,13 @@ export default createStore({
     },
     deleteProduct(state, productId) {
       state.products = state.products.filter(p => p.prodID !== productId)
-    }
+    },
+    setUsers(state, value) {
+      state.users = value
+    },
+    setUser(state, value) {
+      state.user = value
+    },
   },
   actions: {
     // Fetch all products
@@ -126,7 +135,102 @@ export default createStore({
           position: toast.POSITION.TOP_CENTER
         })
       }
-    }
+    },
+    async fetchUsers(context) {
+      try {
+        const { results, msg } = await (await axios.get(`${APIUrl}user`)).data
+        if (results) {
+          context.commit('setUsers', results)
+        } else {
+          toast.error(`${msg}`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+        }
+      } catch (e) {
+        toast.error(`${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+      }
+    },
+    async fetchUser(context, id) {
+      try {
+        const { result, msg } = await (await axios.get(`${APIUrl}user/${id}`)).data
+        if (result) {
+          context.commit('setUser', result)
+        } else {
+          toast.error(`${msg}`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+        }
+      } catch (e) {
+        toast.error(`${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+      }
+    },
+    async register(context, payload) {
+      try {
+        const { msg, err, token } = await (await axios.post(`${APIUrl}user/register`, payload)).data
+        if (token) {
+          context.dispatch('fetchUsers')
+          toast.success(`${msg}`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+          router.push({ name: 'login' })
+        } else {
+          toast.error(`${err}`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+        }
+      } catch (e) {
+        toast.error(`${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+      }
+    },
+    async updateUser(context, payload) {
+      try {
+        const { msg, err } = await (await axios.patch(`${APIUrl}user/${payload.userID}`, payload)).data
+        if (msg) {
+          context.dispatch('fetchUsers')
+        } else {
+          toast.error(`${err}`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+        }
+      } catch (e) {
+        toast.error(`${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+      }
+    },
+    async deleteUser(context, id) {
+      try {
+        const { msg, err } = await (await axios.delete(`${APIUrl}user/${id}`)).data
+        if (msg) {
+          context.dispatch('fetchUsers')
+        } else {
+          toast.error(`${err}`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+        }
+      } catch (e) {
+        toast.error(`${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+      }
+    },
   },
   modules: {}
 })
