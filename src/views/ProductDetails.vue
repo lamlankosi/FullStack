@@ -11,6 +11,7 @@
         </template>
         <template #cardBody>
           <h5 class="card-title fw-bold">{{ product.prodName }}</h5>
+          <p>{{ product.description }}</p>
           <p class="lead"><span class="fw-bold">Amount</span>: R{{ product.amount }}</p>
         </template>
       </Card>
