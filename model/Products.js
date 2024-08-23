@@ -4,7 +4,7 @@ class Products {
     fetchProducts(req,res){
         try{
             const strQry = `
-            SELECT prodID, prodName, quantity, amount, Category, prodUrl
+            SELECT prodID, prodName, quantity,description, amount, Category, prodUrl
             FROM Products;
             `
             db.query(strQry, (err, results) => {
@@ -24,7 +24,7 @@ class Products {
     fetchProduct(req,res){
         try{
             const strQry = `
-            SELECT prodID, prodName, quantity, amount, Category, prodUrl
+            SELECT prodID, prodName, quantity,description, amount, Category, prodUrl
             FROM Products
             WHERE prodID = ${req.params.id};
             `
