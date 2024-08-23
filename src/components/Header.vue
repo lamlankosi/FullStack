@@ -24,16 +24,6 @@
           <li class="nav-item">
             <router-link to="/contact" class="nav-link" exact-active-class="active">Contact</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/signup" class="nav-link">
-              <i class="fas fa-user-plus me-1"></i> Sign Up
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/login" class="nav-link">
-              <i class="fas fa-sign-in-alt me-1"></i> Log In
-            </router-link>
-          </li>
         </ul>
       </div>
     </div>
@@ -58,7 +48,7 @@ export default {
 
 /* Navbar styling */
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
-    color: #f00;
+    color: brown;
 }
 .navbar {
   background-color: var(--primary-bg); /* Dark brown background */
@@ -102,10 +92,11 @@ export default {
 
 .navbar-toggler {
   border-color: var(--primary-text);
+  background-color: #000;
 }
 
 .navbar-toggler-icon {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/4/47/Hamburger_icon_%28menu%29.svg");
+  /* background-image: url("https://upload.wikimedia.org/wikipedia/commons/4/47/Hamburger_icon_%28menu%29.svg"); */
   background-size: 1.5em 1.5em; /* Adjust size as needed */
   background-repeat: no-repeat;
   background-position: center;
