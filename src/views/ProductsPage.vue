@@ -11,6 +11,9 @@
         <template #cardBody>
           <h5 class="lead fw-bold">{{ product.prodName }}</h5>
           <p class="lead"><span class="fw-bold">Amount</span>: R{{ product.amount }}</p>
+          <router-link :to="{ name: 'product-details', params: { id: product.prodID } }">
+            <button class="btn">View</button>
+          </router-link>
         </template>
       </Card>
     </div>
@@ -29,7 +32,6 @@ export default {
       return this.$store.state.products || [];
     },
     filteredProducts() {
-      // Apply any filtering logic if needed
       return this.products;
     }
   },

@@ -63,9 +63,10 @@ export default createStore({
     // Fetch a single product by ID
     async fetchProduct({ commit }, id) {
       try {
-        const { data } = await axios.get(`${APIUrl}product/${id}`)
-        if (data && data.result) {
-          commit('setProduct', data.result)
+        const { results } = await (await axios.get(`${APIUrl}products/${id}`)).data
+        
+        if (results) {
+          commit('setProduct', results[0])
         } else {
           toast.error('Failed to fetch product', {
             autoClose: 2000,
