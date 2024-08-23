@@ -15,6 +15,10 @@
           <input id="amount" v-model="newProduct.amount" type="number" placeholder="Amount" required />
         </div>
         <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input id="quantity" v-model="newProduct.quantity" type="number" placeholder="Quantity" required />
+        </div>
+        <div class="form-group">
           <label for="Category">Category</label>
           <input id="Category" v-model="newProduct.Category" type="text" placeholder="Category" required />
         </div>
@@ -35,6 +39,7 @@
           <div class="product-info">
             <h3>{{ product.prodName }}</h3>
             <p><strong>Amount:</strong> R{{ product.amount }}</p>
+            <p><strong>Quantity:</strong> {{ product.quantity }}</p>
             <p><strong>Category:</strong> {{ product.Category }}</p>
             <div class="btn-group">
               <button @click="editProduct(product)" class="btn-secondary">Edit</button>
@@ -58,6 +63,10 @@
           <input id="editAmount" v-model="editingProduct.amount" type="number" required />
         </div>
         <div class="form-group">
+          <label for="editQuantity">Quantity</label>
+          <input id="editQuantity" v-model="editingProduct.quantity" type="number" required />
+        </div>
+        <div class="form-group">
           <label for="editCategory">Category</label>
           <input id="editCategory" v-model="editingProduct.Category" type="text" required />
         </div>
@@ -72,6 +81,7 @@
   </div>
 </template>
 
+
 <script>
 import { mapState } from 'vuex';
 
@@ -81,6 +91,7 @@ export default {
       newProduct: {
         prodName: '',
         amount: 0,
+        quantity: 0,  // Added quantity field
         Category: '',
         prodUrl: ''
       },
@@ -93,7 +104,7 @@ export default {
   methods: {
     async addProduct() {
       await this.$store.dispatch('addProduct', this.newProduct);
-      this.newProduct = { prodName: '', amount: 0, Category: '', prodUrl: '' };
+      this.newProduct = { prodName: '', amount: 0, quantity: 0, Category: '', prodUrl: '' };
     },
     async deleteProduct(id) {
       await this.$store.dispatch('deleteProduct', id);
@@ -114,6 +125,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 .admin-container {
