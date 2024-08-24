@@ -9,45 +9,41 @@
     </div>
     
     <div class="content-section">
-      <h2 class="section-heading">Our Story</h2>
+      <h2>Our Story</h2>
       <p>
         Urban Loft was born from a passion for design and a love for beautifully crafted home decor. We believe that every space deserves a touch of elegance, whether it’s a cozy apartment or a sprawling home.
       </p>
 
-      <h2 class="section-heading">Our Mission</h2>
+      <h2>Our Mission</h2>
       <p>
         Our mission is to provide high-quality, stylish home decor that reflects your personal style. We carefully curate our collection to offer a range of pieces that are both functional and aesthetically pleasing.
       </p>
 
-      <h2 class="section-heading">Why Choose Us?</h2>
+      <h2>Why Choose Us?</h2>
       <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-up">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <div class="icon-box text-center">
-            <i class="fas fa-couch fa-2x" data-aos="zoom-in" data-aos-delay="100"></i>
-            <h3 data-aos="fade-up" data-aos-delay="200">Stylish Furniture</h3>
-            <p data-aos="fade-up" data-aos-delay="300">Explore our wide range of modern and stylish furniture pieces that perfectly blend comfort with design.</p>
+            <i class="fas fa-couch fa-2x"></i>
+            <h3>Stylish Furniture</h3>
+            <p>Explore our wide range of modern and stylish furniture pieces that perfectly blend comfort with design.</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-up">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <div class="icon-box text-center">
-            <i class="fas fa-gem fa-2x" data-aos="zoom-in" data-aos-delay="100"></i>
-            <h3 data-aos="fade-up" data-aos-delay="200">Quality Materials</h3>
-            <p data-aos="fade-up" data-aos-delay="300">We use only the finest materials, ensuring that each piece is durable, beautiful, and built to last.</p>
+            <i class="fas fa-gem fa-2x"></i>
+            <h3>Quality Materials</h3>
+            <p>We use only the finest materials, ensuring that each piece is durable, beautiful, and built to last.</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-up">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <div class="icon-box text-center">
-            <i class="fas fa-paint-brush fa-2x" data-aos="zoom-in" data-aos-delay="100"></i>
-            <h3 data-aos="fade-up" data-aos-delay="200">Custom Design</h3>
-            <p data-aos="fade-up" data-aos-delay="300">Our team of experts can help you create custom designs that perfectly suit your space and style.</p>
+            <i class="fas fa-paint-brush fa-2x"></i>
+            <h3>Custom Design</h3>
+            <p>Our team of experts can help you create custom designs that perfectly suit your space and style.</p>
           </div>
         </div>
       </div>
     </div>
-    
-    <a href="/products" class="back-to-products">
-      <i class="fas fa-arrow-left"></i>
-    </a>
   </div>
 </template>
 
@@ -88,10 +84,12 @@ export default {
 
 .hero-text h1 {
   font-size: 2.5rem;
+  color: #f5f5f5; /* Light beige for contrast */
 }
 
 .hero-text p {
   font-size: 1.2rem;
+  color: #f5f5f5; /* Light beige for contrast */
 }
 
 .content-section {
@@ -105,26 +103,38 @@ export default {
 .content-section h2 {
   font-size: 1.8rem;
   margin-bottom: 15px;
-  color: #8B5E3C;
+  color: #8B5E3C; /* Neutral brown */
+  text-align: center; /* Center the heading */
 }
 
-.content-section p, .content-section ul {
+.content-section p {
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 20px;
+  color: #6F4F28; /* Darker brown for text */
 }
 
-.content-section ul {
-  padding-left: 20px;
+.icon-box {
+  background-color: #f9f6f2; /* Very light brown */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.content-section ul li {
+.icon-box i {
+  color: #8B5E3C; /* Neutral brown */
   margin-bottom: 10px;
 }
 
-.content-section ul li i {
-  color: #8B5E3C;
-  margin-right: 8px;
+.icon-box h3 {
+  font-size: 1.75rem; /* Increased size for icon box headings */
+  margin-bottom: 10px;
+  color: #5c4034; /* Medium brown */
+}
+
+.icon-box p {
+  font-size: 1rem;
+  color: #6F4F28; /* Darker brown for text */
 }
 
 /* Responsive Styles */
@@ -145,12 +155,35 @@ export default {
     font-size: 1.5rem;
   }
 
-  .content-section p, .content-section ul {
+  .content-section p {
     font-size: 0.9rem;
   }
+}
 
-  .content-section ul li i {
-    margin-right: 5px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
+
+@keyframes bounceIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 </style>

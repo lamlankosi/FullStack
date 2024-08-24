@@ -6,6 +6,16 @@ import 'bootstrap';
 import './assets/styles.css'; // Optional: for custom styles
 import store from './store';
 
+// Import AOS
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+// Initialize AOS
+AOS.init({
+  duration: 1200, // Duration of the animation
+  easing: 'ease-in-out', // Easing function for the animation
+});
+
 // For npm Font Awesome setup (optional)
 // import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

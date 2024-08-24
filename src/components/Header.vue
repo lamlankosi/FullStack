@@ -35,20 +35,12 @@ export default {
 };
 </script>
 <style scoped>
-/* Custom color variables */
-:root {
-  --primary-bg: #4E3A2E; /* Dark brown */
-  --primary-text: #FFF; /* White text */
-  --hover-color: #D1BFA7; /* Light brown for hover */
-  --active-color: #8B5E3C; /* Brown for active link */
-  --link-color: #E0C8B0; /* Light beige for text and icons */
-}
 /* Navbar styling */
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
     color: brown;
 }
 .navbar {
-  background-color: var(--primary-bg); /* Dark brown background */
+  background-color: #4E3A2E;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   padding: 15px 20px;
 }
@@ -64,7 +56,7 @@ export default {
   transform: scale(1.1); /* Slightly enlarge on hover */
 }
 .nav-link {
-  color: var(--link-color); /* Light beige text for visibility */
+  color: white; /* Light beige text for visibility */
   margin-left: 10px;
   font-weight: 500;
   position: relative;

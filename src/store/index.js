@@ -90,7 +90,7 @@ export default createStore({
     // Add a new product
     async addProduct({ commit }, payload) {
       try {
-        const { data } = await axios.post(`${APIUrl}product/add`, payload)
+        const { data } = await axios.post(`${APIUrl}products/add`, payload)
         if (data && data.product) {
           commit('addProduct', data.product) // assuming the response contains the new product
           toast.success('Product added successfully', {
@@ -109,7 +109,7 @@ export default createStore({
     // Update an existing product
     async updateProduct({ commit }, payload) {
       try {
-        const { data } = await axios.patch(`${APIUrl}product/${payload.prodID}`, payload)
+        const { data } = await axios.patch(`${APIUrl}products/${payload.prodID}`, payload)
         if (data && data.product) {
           commit('updateProduct', data.product) // assuming the response contains the updated product
           toast.success('Product updated successfully', {
@@ -128,7 +128,7 @@ export default createStore({
     // Delete a product
     async deleteProduct({ commit }, id) {
       try {
-        const { data } = await axios.delete(`${APIUrl}product/${id}`)
+        const { data } = await axios.delete(`${APIUrl}products/${id}`)
         if (data && data.msg) {
           commit('deleteProduct', id)
           toast.success('Product deleted successfully', {
