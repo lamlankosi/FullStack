@@ -5,8 +5,6 @@
     </div>
     <div class="card-body">
       <slot name="cardBody"></slot>
-      <!-- View Details Button -->
-      <button @click="viewDetails" class="btn btn-primary mt-3">View Details</button>
     </div>
   </div>
 </template>

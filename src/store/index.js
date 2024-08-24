@@ -11,11 +11,15 @@ export default createStore({
     products: [],
     product: null,
     users: null,
-    user: null
+    user: null,
+    categories: null,
   },
   mutations: {
     setProducts(state, value) {
-      state.products = value
+      state.products = value;
+      // Extract categories and update state
+      const categories = [...new Set(value.map(product => product.Category))];
+      state.categories = categories;
     },
     setProduct(state, value) {
       state.product = value
@@ -38,25 +42,27 @@ export default createStore({
     setUser(state, value) {
       state.user = value
     },
+    
   },
   actions: {
     // Fetch all products
     async fetchProducts({ commit }) {
       try {
-        const { data } = await axios.get(`${APIUrl}products`)
+        const { data } = await axios.get(`${APIUrl}products`);
         if (data && data.results) {
-          commit('setProducts', data.results)
+          commit('setProducts', data.results);
+          // No need for separate fetchCategories action
         } else {
           toast.error('Failed to fetch products', {
             autoClose: 2000,
             position: toast.POSITION.TOP_CENTER
-          })
+          });
         }
       } catch (e) {
         toast.error(`Error: ${e.message}`, {
           autoClose: 2000,
           position: toast.POSITION.TOP_CENTER
-        })
+        });
       }
     },
 

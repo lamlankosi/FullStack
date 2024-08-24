@@ -1,7 +1,7 @@
 <template>
   <div class="about-container">
     <div class="hero-section">
-      <div class="parallax"></div>
+      <img src="https://images.pexels.com/photos/7512042/pexels-photo-7512042.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="About Us" class="hero-image img-fluid" />
       <div class="hero-text">
         <h1>About Urban Loft</h1>
         <p>Crafting elegant and timeless decor to make every home unique.</p>
@@ -9,17 +9,17 @@
     </div>
     
     <div class="content-section">
-      <h2 class="text-center">Our Story</h2>
+      <h2 class="section-heading">Our Story</h2>
       <p>
         Urban Loft was born from a passion for design and a love for beautifully crafted home decor. We believe that every space deserves a touch of elegance, whether it’s a cozy apartment or a sprawling home.
       </p>
 
-      <h2 class="text-center">Our Mission</h2>
+      <h2 class="section-heading">Our Mission</h2>
       <p>
         Our mission is to provide high-quality, stylish home decor that reflects your personal style. We carefully curate our collection to offer a range of pieces that are both functional and aesthetically pleasing.
       </p>
 
-      <h2 class="text-center">Why Choose Us?</h2>
+      <h2 class="section-heading">Why Choose Us?</h2>
       <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-up">
           <div class="icon-box text-center">
@@ -44,18 +44,16 @@
         </div>
       </div>
     </div>
+    
+    <a href="/products" class="back-to-products">
+      <i class="fas fa-arrow-left"></i>
+    </a>
   </div>
 </template>
 
 <script>
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
 export default {
   name: 'AboutPage',
-  mounted() {
-    AOS.init();
-  },
 };
 </script>
 
@@ -69,15 +67,13 @@ export default {
   position: relative;
   text-align: center;
   margin-bottom: 30px;
-  overflow: hidden;
 }
 
-.parallax {
-  background-image: url('https://images.pexels.com/photos/7512042/pexels-photo-7512042.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  height: 500px; /* Increased height for a larger parallax effect */
+.hero-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  filter: brightness(0.75);
 }
 
 .hero-text {
@@ -91,11 +87,11 @@ export default {
 }
 
 .hero-text h1 {
-  font-size: 3rem; /* Increased size to match home page */
+  font-size: 2.5rem;
 }
 
 .hero-text p {
-  font-size: 1.5rem; /* Increased size to match home page */
+  font-size: 1.2rem;
 }
 
 .content-section {
@@ -107,48 +103,38 @@ export default {
 }
 
 .content-section h2 {
-  font-size: 2rem; /* Increased size for section headings */
+  font-size: 1.8rem;
   margin-bottom: 15px;
   color: #8B5E3C;
-  text-align: center; /* Center the heading */
 }
 
-.content-section p {
+.content-section p, .content-section ul {
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 20px;
 }
 
-.icon-box {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.content-section ul {
+  padding-left: 20px;
 }
 
-.icon-box i {
+.content-section ul li {
+  margin-bottom: 10px;
+}
+
+.content-section ul li i {
   color: #8B5E3C;
-  margin-bottom: 10px;
+  margin-right: 8px;
 }
 
-.icon-box h3 {
-  font-size: 1.75rem; /* Increased size for icon box headings */
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.icon-box p {
-  font-size: 1rem;
-  color: #555;
-}
-
+/* Responsive Styles */
 @media (max-width: 576px) {
   .hero-text h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .hero-text p {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .content-section {
@@ -159,12 +145,12 @@ export default {
     font-size: 1.5rem;
   }
 
-  .content-section p, .icon-box p {
+  .content-section p, .content-section ul {
     font-size: 0.9rem;
   }
 
-  .icon-box h3 {
-    font-size: 1.5rem;
+  .content-section ul li i {
+    margin-right: 5px;
   }
 }
 </style>
