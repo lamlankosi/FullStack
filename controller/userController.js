@@ -26,7 +26,7 @@ routerUser.patch('/:id', (req,res) =>{
 routerUser.delete('/:id', (req,res) => {
     users.deleteUser(req,res)
 })
-//Login a User
+//login a User
 routerUser.post('/signIn', (req,res) =>{
     users.loginUser(req,res)
 })
