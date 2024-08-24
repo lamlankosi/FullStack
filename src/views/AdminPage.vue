@@ -52,7 +52,10 @@
 
     <!-- Users List -->
     <section class="user-list">
-      <h2>User List</h2>
+      <div class="user-list-header">
+        <h2>User List</h2>
+        <button @click="showAddUserModal = true" class="btn-primary">Add User</button>
+      </div>
       <table class="user-table">
           <tr>
             <th>Profile</th>
@@ -62,6 +65,7 @@
             <th>Gender</th>
             <th>Role</th>
             <th>Email</th>
+            <th>Password</th>
             <th>Actions</th>
           </tr>
 
@@ -73,6 +77,7 @@
             <td>{{ user.Gender }}</td>
             <td>{{ user.userRole }}</td>
             <td>{{ user.emailAdd }}</td>
+            <td>{{ user.userPass }}</td>
             <td>
               <button @click="editUser(user)" class="btn-secondary">Edit</button>
               <button @click="deleteUser(user.userID)" class="btn-danger">Delete</button>
@@ -96,6 +101,12 @@
       @update:visible="showEditUserModal = $event"
       @update-user="handleUpdateUser"
     />
+    <!-- Add user modal -->
+    <AddUserModal
+      :visible="showAddUserModal"
+      @update:visible="showAddUserModal = $event"
+      @add-user="handleAddUser"
+    />
   </div>
 </template>
 
@@ -103,11 +114,13 @@
 import EditModal from '../components/EditModal.vue'
 import EditUserModal from '../components/EditUserModal.vue'
 import { mapState } from 'vuex'
+ import AddUserModal from '@/components/AddUserModal.vue'
 
 export default {
   components: {
     EditModal,
-    EditUserModal
+    EditUserModal,
+    AddUserModal
   },
   data() {
     return {
@@ -122,7 +135,18 @@ export default {
       showEditModal: false,
       selectedProduct: null,
       showEditUserModal: false,
-      selectedUser: null
+      selectedUser: null,
+      showAddUserModal: false,
+      newUser: {
+        firstName: '',
+        lastName: '',
+        userAge: null,
+        Gender: '',
+        userRole: '',
+        emailAdd: '',
+        userPass: '',
+        userProfile: '',
+      }
     }
   },
   computed: {
@@ -160,6 +184,10 @@ export default {
     },
     deleteUser(id) {
       this.$store.dispatch('deleteUser', id);
+    },
+    async handleAddUser(newUser) {
+      await this.$store.dispatch('addUser', newUser)
+      this.showAddUserModal = false
     }
   },
   mounted() {
@@ -173,31 +201,31 @@ export default {
 /* General Layout */
 .admin-container {
   padding: 20px;
-  background-color: #f5f5f5; /* Light beige background for a neutral look */
-  color: #4a4a4a; /* Dark gray text for readability */
-  font-family: 'Arial', sans-serif; /* Clean font for a modern look */
+  background-color: #f5f5f5;
+  color: #4a4a4a; 
+  font-family: 'Arial', sans-serif; 
 }
 
 /* Page Title */
 .page-title {
   margin-bottom: 20px;
   font-size: 2rem;
-  color: #5c4033; /* Deep brown for a warm feel */
+  color: #5c4033; 
 }
 
 /* Form Section */
 .form-section {
-  background-color: #ffffff; /* White background for the form */
+  background-color: #ffffff; 
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
 .form-section h2 {
   margin-bottom: 15px;
   font-size: 1.5rem;
-  color: #6f4f28; /* Medium brown */
+  color: #6f4f28;
 }
 
 .form-group {
@@ -207,19 +235,18 @@ export default {
 .form-group label {
   display: block;
   margin-bottom: 5px;
-  color: #6f4f28; /* Medium brown for labels */
+  color: #6f4f28; 
 }
 
 .form-group input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #d8b4a3; /* Light brown border */
-  border-radius: 4px;
-  background-color: #fafafa; /* Light background for input fields */
+  border: 1px solid #d8b4a3; 
+  background-color: #fafafa; 
 }
 
 .btn-primary {
-  background-color: #8b5e3c; /* Warm brown for buttons */
+  background-color: #8b5e3c;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -229,11 +256,11 @@ export default {
 }
 
 .btn-primary:hover {
-  background-color: #704f36; /* Darker brown on hover */
+  background-color: #704f36;
 }
 
 .btn-secondary {
-  background-color: #bfae9b; /* Lighter beige for secondary buttons */
+  background-color: #bfae9b;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -243,7 +270,7 @@ export default {
 }
 
 .btn-secondary:hover {
-  background-color: #9e8e7e; /* Slightly darker beige on hover */
+  background-color: #9e8e7e; 
 }
 
 /* Product List */
@@ -254,18 +281,18 @@ export default {
 .product-list h2 {
   margin-bottom: 15px;
   font-size: 1.5rem;
-  color: #6f4f28; /* Medium brown */
+  color: #6f4f28; 
 }
 
 .product-item {
   display: flex;
   align-items: center;
-  border: 1px solid #d8b4a3; /* Light brown border */
+  border: 1px solid #d8b4a3; 
   border-radius: 8px;
   background-color: #ffffff;
   padding: 15px;
   margin-bottom: 15px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for each item */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
 }
 
 .product-image {
@@ -282,7 +309,7 @@ export default {
 .product-info h3 {
   margin: 0;
   font-size: 1.25rem;
-  color: #5c4033; /* Deep brown */
+  color: #5c4033;
 }
 
 .product-info p {
@@ -302,7 +329,7 @@ export default {
 .user-list h2 {
   margin-bottom: 15px;
   font-size: 1.5rem;
-  color: #6f4f28; /* Medium brown */
+  color: #6f4f28;
 }
 
 .user-table {
@@ -312,17 +339,17 @@ export default {
 
 .user-table th, .user-table td {
   padding: 10px;
-  border: 1px solid #d8b4a3; /* Light brown border for table cells */
+  border: 1px solid #d8b4a3; 
   text-align: left;
 }
 
 .user-table th {
-  background-color: #e5d9cc; /* Light beige for headers */
-  color: #6f4f28; /* Medium brown for header text */
+  background-color: #e5d9cc;
+  color: #6f4f28; 
 }
 
 .user-table td {
-  background-color: #ffffff; /* White background for cells */
+  background-color: #ffffff;
 }
 
 .user-table img {
@@ -332,7 +359,7 @@ export default {
 }
 
 .btn-danger {
-  background-color: #d9534f; /* Bootstrap red for danger */
+  background-color: #d9534f;
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -342,7 +369,27 @@ export default {
 }
 
 .btn-danger:hover {
-  background-color: #c9302c; /* Darker red on hover */
+  background-color: #c9302c; 
+}
+.user-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.btn-primary {
+  background-color: #8b5e3c;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #704f36;
 }
 </style>
 

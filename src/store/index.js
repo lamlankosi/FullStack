@@ -163,7 +163,7 @@ export default createStore({
     },
     async fetchUser(context, id) {
       try {
-        const { result, msg } = await (await axios.get(`${APIUrl}user/${id}`)).data
+        const { result, msg } = await (await axios.get(`${APIUrl}users/${id}`)).data
         if (result) {
           context.commit('setUser', result)
         } else {
@@ -181,7 +181,7 @@ export default createStore({
     },
     async register(context, payload) {
       try {
-        const { msg, err, token } = await (await axios.post(`${APIUrl}user/register`, payload)).data
+        const { msg, err, token } = await (await axios.post(`${APIUrl}users/register`, payload)).data
         if (token) {
           context.dispatch('fetchUsers')
           toast.success(`${msg}`, {
@@ -204,7 +204,7 @@ export default createStore({
     },
     async updateUser(context, payload) {
       try {
-        const { msg, err } = await (await axios.patch(`${APIUrl}user/${payload.userID}`, payload)).data
+        const { msg, err } = await (await axios.patch(`${APIUrl}users/${payload.userID}`, payload)).data
         if (msg) {
           context.dispatch('fetchUsers')
         } else {
@@ -222,7 +222,7 @@ export default createStore({
     },
     async deleteUser(context, id) {
       try {
-        const { msg, err } = await (await axios.delete(`${APIUrl}user/${id}`)).data
+        const { msg, err } = await (await axios.delete(`${APIUrl}users/${id}`)).data
         if (msg) {
           context.dispatch('fetchUsers')
         } else {
