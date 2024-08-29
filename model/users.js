@@ -129,7 +129,7 @@ class Users {
         try{
             const {emailAdd, userPass} = req.body
             const strQry = `
-            SELECT userID, firstName, lastName, userAge,Gender, emailAdd, password , userRole, profileURL
+            SELECT userID, firstName, lastName, userAge,Gender, emailAdd, userPass, userRole, userProfile, userPass
             FROM Users
             WHERE emailAdd = '${emailAdd}'`
             db.query(strQry, async (err, result) => {
@@ -142,11 +142,11 @@ class Users {
                             }
                         )
                     } else {
-                        const  ValidPwd = await compare(password, result[0].password)
+                        const  ValidPwd = await compare(userPass, result[0].userPass)
                         if(ValidPwd) {
                             const token = createToken({
                                 emailAdd,
-                                password
+                                userPass
                             })
                             res.json({
                                 status: res.statusCode,
