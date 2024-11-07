@@ -52,39 +52,40 @@
 
     <!-- Users List -->
     <section class="user-list">
-      <div class="user-list-header">
-        <h2>User List</h2>
-        <button @click="showAddUserModal = true" class="btn-primary">Add User</button>
-      </div>
-      <table class="user-table">
-          <tr>
-            <th>Profile</th>
-            <th>First Name</th>
-            <th>Surname</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Actions</th>
-          </tr>
-
-          <tr v-for="user in users" :key="user.userID">
-            <td><img :src="user.userProfile" :alt="user.firstName" id="user-image"></td>
-            <td>{{ user.firstName }}</td>
-            <td>{{ user.lastName }}</td>
-            <td>{{ user.userAge }}</td>
-            <td>{{ user.Gender }}</td>
-            <td>{{ user.userRole }}</td>
-            <td>{{ user.emailAdd }}</td>
-            <td>{{ user.userPass }}</td>
-            <td>
-              <button @click="editUser(user)" class="btn-secondary">Edit</button>
-              <button @click="deleteUser(user.userID)" class="btn-danger">Delete</button>
-            </td>
-          </tr>
-      </table>
-    </section> 
+  <div class="user-list-header">
+    <h2>User List</h2>
+    <button @click="showAddUserModal = true" class="btn-primary">Add User</button>
+  </div>
+  <div class="table-responsive"> <!-- Add this div -->
+    <table class="user-table">
+      <tr>
+        <th>Profile</th>
+        <th>First Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Role</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Actions</th>
+      </tr>
+      <tr v-for="user in users" :key="user.userID">
+        <td><img :src="user.userProfile" :alt="user.firstName" id="user-image"></td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.userAge }}</td>
+        <td>{{ user.Gender }}</td>
+        <td>{{ user.userRole }}</td>
+        <td>{{ user.emailAdd }}</td>
+        <td>{{ user.userPass }}</td>
+        <td>
+          <button @click="editUser (user)" class="btn-secondary">Edit</button>
+          <button @click="deleteUser (user.userID)" class="btn-danger">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div> <!-- Close the div -->
+</section>
 
     <!-- Product Edit Modal -->
     <EditModal
@@ -390,6 +391,57 @@ export default {
 
 .btn-primary:hover {
   background-color: #704f36;
+}
+.table-responsive {
+  overflow-x: auto; /* Allow horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.user-table {
+  width: 100%; /* Ensure the table takes full width */
+  min-width: 600px; /* Set a minimum width for the table */
+  border-collapse: collapse;
+}
+/* Product List */
+.product-item {
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  align-items: center;
+  border: 1px solid #d8b4a3; 
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+.product-image {
+  width: 100px;
+  height: auto;
+  margin-right: 15px; /* Space between image and text */
+}
+
+.product-info {
+  flex-grow: 1;
+}
+
+
+/* Responsive Design for Small Devices */
+@media (max-width: 600px) {
+  .product-item {
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: flex-start; /* Align items to start */
+  }
+
+  .product-image {
+    width: 80%; /* Adjust image width for small screens */
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 10px; /* Add bottom margin for spacing */
+  }
+
+  .product-info {
+    width: 100%; /* Ensure product info takes full width */
+  }
 }
 </style>
 
