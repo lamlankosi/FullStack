@@ -136,11 +136,42 @@ export default {
   font-size: 1rem;
   color: #6F4F28; /* Darker brown for text */
 }
+/* Product List */
+.product-item {
+  display: flex;
+  flex-direction: row; /* Default to row layout */
+  align-items: center;
+  border: 1px solid #d8b4a3; 
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+.product-image {
+  width: 100px;
+  height: auto;
+  margin-right: 15px; /* Space between image and text */
+}
+
+.product-info {
+  flex-grow: 1;
+}
+
+
 
 /* Responsive Styles */
 @media (max-width: 576px) {
+  .hero-text {
+    padding: 10px; /* Reduce padding on small devices */
+  }
+
   .hero-text h1 {
-    font-size: 2rem;
+    font-size: 1.5rem; /* Adjusted size for smaller devices */
+    white-space: nowrap; /* Prevents the text from wrapping */
+    overflow: hidden; /* Hides overflow text */
+    text-overflow: ellipsis; /* Adds ellipsis for overflow text */
   }
 
   .hero-text p {
